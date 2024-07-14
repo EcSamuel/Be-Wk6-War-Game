@@ -31,7 +31,7 @@ public class WarGame {
         warDeck.shuffle();
         dealCards();
         while (player1.getHandSize() > 0 && player2.getHandSize() > 0) {
-            System.out.println("***** ROUND" + roundNo + "*****");
+            System.out.println("***** ROUND " + roundNo + "*****");
             roundNo += 1;
             playRound();
         }
