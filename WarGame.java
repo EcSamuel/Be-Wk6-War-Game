@@ -3,24 +3,34 @@ public class WarGame {
     private Player player2;
     private Deck warDeck;
 
-    public int evaluateCard(CardRank, rank) {
-        return rank.getValue();
-    }
-
     public WarGame(String player1Name, String player2Name) {
         player1 = new Player(player1Name);
         player2 = new Player(player2Name);
         warDeck = new Deck();
-        dealCards();
+        System.out.println("Initial Deck Size: " + warDeck.remainingCards());
     }
 
     private void dealCards() {
-        while (warDeck.remainingCards() > 0) {
-            player1.draw(warDeck);
-            if (warDeck.remainingCards() > 0) {
-                player2.draw(warDeck);
-            }
+        int totalCards = warDeck.remainingCards();
+        System.out.println("Dealing " + totalCards + " cards");
+        for (int i = 0; i < totalCards / 2; i++) {
+            Card card1 = warDeck.deal();
+            Card card2 = warDeck.deal();
+            player1.draw(card1);
+            player2.draw(card2);
+            System.out.println("Dealt: " + card1 + " to " + player1.getName() + " and " + card2 + " to " + player2.getName());
         }
+        System.out.println(player1.getName() + " hand size: " + player1.getHandSize());
+        System.out.println(player2.getName() + " hand size: " + player2.getHandSize());
+    }
+
+    public void playGame() {
+        warDeck.shuffle();
+        dealCards();
+        while (player1.getHandSize() > 0 && player2.getHandSize() > 0) {
+            playRound();
+        }
+        determineWinner();
     }
 
     public void playRound() {
@@ -35,40 +45,38 @@ public class WarGame {
         System.out.println(player1.getName() + " plays: " + card1);
         System.out.println(player2.getName() + " plays: " + card2);
 
-        if (card1.getValue() > card2.getValue()) {
+        int value1 = card1.getRank().getValue();
+        int value2 = card2.getRank().getValue();
+
+        if (value1 > value2) {
             player1.incrementScore();
             System.out.println(player1.getName() + " wins this round!");
-        } else if (card1.getValue() < card2.getValue()) {
+        } else if (value1 < value2) {
             player2.incrementScore();
             System.out.println(player2.getName() + " wins this round!");
         } else {
             System.out.println("It's a tie!");
-            // Handle war situation here if needed
         }
 
         System.out.println("Current scores: " + player1.getName() + ": " + player1.getScore() 
                            + ", " + player2.getName() + ": " + player2.getScore());
     }
 
-    public void playGame(int rounds) {
-        warDeck.shuffle();
-        for (int i = 1; i <= rounds; i++) {
-            System.out.println("\nRound " + i);
-            playRound();
-        }
-        announceWinner();
-    }
+    private void determineWinner() {
+        int score1 = player1.getScore();
+        int score2 = player2.getScore();
+        System.out.println("Final scores: " + player1.getName() + ": " + score1 + ", " + player2.getName() + ": " + score2);
 
-    private void announceWinner() {
-        if (player1.getScore() > player2.getScore()) {
+        if (score1 > score2) {
             System.out.println(player1.getName() + " wins the game!");
-        } else if (player1.getScore() < player2.getScore()) {
-            System.out.println(player2.getName() + "wins the game!");
+        } else if (score1 < score2) {
+            System.out.println(player2.getName() + " wins the game!");
         } else {
-            System.out.println("The game is a tie.");
+            System.out.println("It's a draw!");
         }
     }
 }
+
 // War needs to shuffle the deck
 
 // war needs to deal each player their deck (can be done by cutting he ArrayList in half and making that the new arraylist for each player)

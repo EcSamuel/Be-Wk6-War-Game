@@ -4,13 +4,11 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Card> hand;
-    private List<Card> playArea;
     private int score;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
-        this.playArea = new ArrayList<>();
         this.score = 0;
     }
 
@@ -22,32 +20,23 @@ public class Player {
         return hand;
     }
 
-    public List<Card> getPlayArea() {
-        return playArea;
-    }
-
     public int getScore() {
         return score;
     }
 
-    public void addToHand(Card card) {
+    public int getHandSize() {
+        return hand.size();
+    }
+
+    public void draw(Card card) {
         hand.add(card);
     }
 
     public Card flip() {
         if (!hand.isEmpty()) {
-            Card card = hand.remove(hand.size() - 1);
-            playArea.add(card);
-            return card;
+            return hand.remove(hand.size() - 1);
         }
         return null;
-    }
-
-    public void draw(Deck deck) {
-        Card card = deck.deal();
-        if (card != null) {
-            hand.add(card);
-        }
     }
 
     public void incrementScore() {
@@ -56,10 +45,7 @@ public class Player {
 
     public void describe() {
         System.out.println("Player: " + name + " - Score: " + score);
-        System.out.println("Hand: ");
-        for (Card card : hand) {
-            System.out.println("  " + card);
-        }
+        System.out.println("Hand size: " + hand.size());
     }
 
     @Override

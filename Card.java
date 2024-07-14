@@ -25,6 +25,7 @@ public class Card {
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
+        this.name =rank.name() + " of " + suit.name();
     }
 
     public Rank getRank() {
@@ -37,6 +38,10 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    public void describe() {
+        System.out.println(this.toString());
     }
 
     @Override

@@ -7,12 +7,14 @@ public class Deck {
 
     public Deck() {
         cards = new ArrayList<>();
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-        for (Suit suit : Suit.values()) {
-            for (String rank : ranks) {
-                cards.add(new Card(rank, suit));
+        for (Card.Suit suit : Card.Suit.values()) {
+            for (Card.Rank rank : Card.Rank.values()) {
+                Card card = new Card(rank, suit);
+                cards.add(card);
+                System.out.println("Created Card: " + card);
             }
         }
+        System.out.println("Total Cards Created: " + cards.size());
     }
 
     public void shuffle() {
@@ -38,25 +40,27 @@ public class Deck {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        Deck deck = new Deck();
-        System.out.println("Deck before shuffling:");
-        System.out.println(deck);
-
-        deck.shuffle();
-        System.out.println("Deck after shuffling:");
-        System.out.println(deck);
-
-        System.out.println("Dealing cards:");
-        for (int i = 0; i < 5; i++) {
-            System.out.println(deck.deal());
-        }
-
-        System.out.println("Remaining cards in the deck:");
-        System.out.println(deck.remainingCards());
-    }
 }
+
+
+    // public static void main(String[] args) {
+    //     Deck deck = new Deck();
+    //     System.out.println("Deck before shuffling:");
+    //     System.out.println(deck);
+
+    //     deck.shuffle();
+    //     System.out.println("Deck after shuffling:");
+    //     System.out.println(deck);
+
+    //     System.out.println("Dealing cards:");
+    //     for (int i = 0; i < 5; i++) {
+    //         System.out.println(deck.deal());
+    //     }
+
+    //     System.out.println("Remaining cards in the deck:");
+    //     System.out.println(deck.remainingCards());
+    // }
+
 
 // b.     Deck
 
