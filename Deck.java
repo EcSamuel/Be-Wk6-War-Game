@@ -11,7 +11,6 @@ public class Deck {
             for (Card.Rank rank : Card.Rank.values()) {
                 Card card = new Card(rank, suit);
                 cards.add(card);
-                System.out.println("Created Card: " + card);
             }
         }
         System.out.println("Total Cards Created: " + cards.size());

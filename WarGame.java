@@ -2,11 +2,14 @@ public class WarGame {
     private Player player1;
     private Player player2;
     private Deck warDeck;
+    private int roundNo;
 
     public WarGame(String player1Name, String player2Name) {
         player1 = new Player(player1Name);
         player2 = new Player(player2Name);
         warDeck = new Deck();
+        roundNo = 1;
+        
         System.out.println("Initial Deck Size: " + warDeck.remainingCards());
     }
 
@@ -18,7 +21,7 @@ public class WarGame {
             Card card2 = warDeck.deal();
             player1.draw(card1);
             player2.draw(card2);
-            System.out.println("Dealt: " + card1 + " to " + player1.getName() + " and " + card2 + " to " + player2.getName());
+            // System.out.println("Dealt: " + card1 + " to " + player1.getName() + " and " + card2 + " to " + player2.getName());
         }
         System.out.println(player1.getName() + " hand size: " + player1.getHandSize());
         System.out.println(player2.getName() + " hand size: " + player2.getHandSize());
@@ -28,6 +31,8 @@ public class WarGame {
         warDeck.shuffle();
         dealCards();
         while (player1.getHandSize() > 0 && player2.getHandSize() > 0) {
+            System.out.println("***** ROUND" + roundNo + "*****");
+            roundNo += 1;
             playRound();
         }
         determineWinner();
@@ -55,7 +60,7 @@ public class WarGame {
             player2.incrementScore();
             System.out.println(player2.getName() + " wins this round!");
         } else {
-            System.out.println("It's a tie!");
+            System.out.println("It's a tie! No Point Awarded");
         }
 
         System.out.println("Current scores: " + player1.getName() + ": " + player1.getScore() 
